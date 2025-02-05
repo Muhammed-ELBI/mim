@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tactical Shooters Club</title>
+    <link rel="stylesheet" href="clubdashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="mouse-effect"></div>
+    
+    <nav class="navbar">
+        <div class="nav-brand">Shooter Club</div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#"><i class="fas fa-home"></i> Anasayfa</a></li>
+            <li><a href="#"><i class="fas fa-user"></i> Profil</a></li>
+            <li><a href="#"><i class="fas fa-bullseye"></i> Shooter</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Clubs</a></li>
+            <li><a href="#"><i class="fas fa-trophy"></i> Geçmiş Turnuvalar</a></li>
+            <li><a href="#"><i class="fas fa-calendar"></i> Gelecek Turnuvalar</a></li>
+            <li><a href="#"><i class="fas fa-images"></i> Galeri</a></li>
+            <li><a href="#"><i class="fas fa-handshake"></i> Support</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <div class="grid">
+            <!-- Sol Kolon -->
+            <div class="left-column">
+                <!-- Kulüp Bilgileri -->
+                <div class="club-info card">
+                    <div class="club-header">
+                        <div>
+                            <h1>Tactical Shooters Club</h1>
+                            <p>İstanbul, Kadıköy</p>
+                            <p>+90 (212) 555-0123</p>
+                        </div>
+                        <div class="club-logo">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="club-president">
+                        <h2>Club Başkanı</h2>
+                        <p>Ahmet Yılmaz</p>
+                    </div>
+                </div>
+
+                <!-- Gelecek Turnuvalar -->
+                <div class="tournaments-card future-tournaments">
+                    <h2>Gelecek Turnuvalar</h2>
+                    <div class="tournament">
+                        <h3>MimTacticals Turnuvası</h3>
+                        <p class="date">11.10.2024 - 13.10.2024</p>
+                        <p class="location">İstanbul Arena</p>
+                    </div>
+                    <div class="tournament">
+                        <h3>Summer Championship</h3>
+                        <p class="date">15.07.2024 - 20.07.2024</p>
+                        <p class="location">Ankara Zone</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sağ Kolon -->
+            <div class="right-column">
+                <!-- Harita -->
+                <div class="map card">
+                    <h2>Konum</h2>
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96690.80542089987!2d29.0121!3d40.9909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab82bea99445f%3A0x6ed6c4e07eaff755!2sKad%C4%B1k%C3%B6y%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1234567890"
+                            width="100%"
+                            height="200"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
+                <!-- Geçmiş Turnuvalar -->
+                <div class="tournaments-card past-tournaments">
+                    <h2>Geçmiş Turnuvalar</h2>
+                    <div class="tournament">
+                        <h3>Duru Kılıç Turnuvası</h3>
+                        <p class="date">14.06.2024 - 28.06.2024</p>
+                        <p class="location">İzmir Arena</p>
+                        <p class="rank">3. Sıra</p>
+                    </div>
+                    <div class="tournament">
+                        <h3>Spring Championship</h3>
+                        <p class="date">01.04.2024 - 05.04.2024</p>
+                        <p class="location">İstanbul Zone</p>
+                        <p class="rank">1. Sıra</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mouse effect
+        document.addEventListener("mousemove", (e) => {
+            const mouseEffect = document.getElementById("mouse-effect");
+            mouseEffect.style.setProperty("--mouse-x", e.clientX + "px");
+            mouseEffect.style.setProperty("--mouse-y", e.clientY + "px");
+        });
+
+        // Hamburger menu
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

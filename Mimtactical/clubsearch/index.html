@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atış Kulüpleri</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="mouse-effect"></div>
+    
+    <nav class="navbar">
+        <div class="nav-brand">Shooter Club</div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#"><i class="fas fa-home"></i> Anasayfa</a></li>
+            <li><a href="#"><i class="fas fa-user"></i> Profil</a></li>
+            <li><a href="#"><i class="fas fa-bullseye"></i> Shooter</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Clubs</a></li>
+            <li><a href="#"><i class="fas fa-trophy"></i> Geçmiş Turnuvalar</a></li>
+            <li><a href="#"><i class="fas fa-calendar"></i> Gelecek Turnuvalar</a></li>
+            <li><a href="#"><i class="fas fa-images"></i> Galeri</a></li>
+            <li><a href="#"><i class="fas fa-handshake"></i> Support</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="filter-group">
+                <h3>Kulüp Ara</h3>
+                <input type="text" class="search-input" id="clubSearch" placeholder="Kulüp adı ara..." oninput="filterClubs()">
+            </div>
+
+            <div class="filter-group">
+                <h3>Ülkeler</h3>
+                <div class="listbox" onclick="toggleListbox('countries')">Ülke Seçin</div>
+                <div class="listbox-options" id="countries">
+                    <div class="listbox-option">
+                        <input type="checkbox" id="turkey" value="Türkiye" onchange="filterClubs()">
+                        <label for="turkey">Türkiye</label>
+                    </div>
+                    <div class="listbox-option">
+                        <input type="checkbox" id="usa" value="Amerika" onchange="filterClubs()">
+                        <label for="usa">Amerika</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3>Şehir</h3>
+                <div class="listbox" onclick="toggleListbox('cities')">Şehir Seçin</div>
+                <div class="listbox-options" id="cities">
+                    <div class="listbox-option">
+                        <input type="checkbox" id="istanbul" value="İstanbul" onchange="filterClubs()">
+                        <label for="istanbul">İstanbul</label>
+                    </div>
+                    <div class="listbox-option">
+                        <input type="checkbox" id="ankara" value="Ankara" onchange="filterClubs()">
+                        <label for="ankara">Ankara</label>
+                    </div>
+                    <div class="listbox-option">
+                        <input type="checkbox" id="izmir" value="İzmir" onchange="filterClubs()">
+                        <label for="izmir">İzmir</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <h3>İlçe</h3>
+                <div class="listbox" onclick="toggleListbox('districts')">İlçe Seçin</div>
+                <div class="listbox-options" id="districts">
+                    <div class="listbox-option">
+                        <input type="checkbox" id="kadikoy" value="Kadıköy" onchange="filterClubs()">
+                        <label for="kadikoy">Kadıköy</label>
+                    </div>
+                    <div class="listbox-option">
+                        <input type="checkbox" id="besiktas" value="Beşiktaş" onchange="filterClubs()">
+                        <label for="besiktas">Beşiktaş</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="clubs-container">
+                <div class="clubs-list" id="clubsList">
+                    <!-- Kulüp kartları buraya dinamik olarak eklenecek -->
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96690.80542089987!2d29.0121!3d40.9909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab82bea99445f%3A0x6ed6c4e07eaff755!2sKad%C4%B1k%C3%B6y%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1234567890"
+                        width="100%"
+                        height="400"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const clubs = [
+            {
+                name: "Tactical Shooters Club",
+                address: "Kadıköy, İstanbul - Caferağa Mah. Moda Cad. No: 123",
+                city: "İstanbul",
+                district: "Kadıköy",
+                country: "Türkiye"
+            },
+            {
+                name: "Ankara Atış Kulübü",
+                address: "Çankaya, Ankara - Kızılay Mah. Atatürk Bulvarı No: 456",
+                city: "Ankara",
+                district: "Çankaya",
+                country: "Türkiye"
+            },
+            {
+                name: "İzmir Poligon Spor",
+                address: "Karşıyaka, İzmir - Bostanlı Mah. Cemal Gürsel Cad. No: 789",
+                city: "İzmir",
+                district: "Karşıyaka",
+                country: "Türkiye"
+            }
+        ];
+
+        function createClubCard(club) {
+            return `
+                <div class="club-card">
+                    <div class="club-info">
+                        <h3>${club.name}</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> ${club.address}</p>
+                    </div>
+                    <a href="#" class="view-club-btn">Kulübü Gör</a>
+                </div>
+            `;
+        }
+
+        function filterClubs() {
+            const searchText = document.getElementById('clubSearch').value.toLowerCase();
+            const selectedCountries = Array.from(document.querySelectorAll('#countries input:checked')).map(input => input.value);
+            const selectedCities = Array.from(document.querySelectorAll('#cities input:checked')).map(input => input.value);
+            const selectedDistricts = Array.from(document.querySelectorAll('#districts input:checked')).map(input => input.value);
+
+            const filteredClubs = clubs.filter(club => {
+                const nameMatch = club.name.toLowerCase().includes(searchText);
+                const countryMatch = selectedCountries.length === 0 || selectedCountries.includes(club.country);
+                const cityMatch = selectedCities.length === 0 || selectedCities.includes(club.city);
+                const districtMatch = selectedDistricts.length === 0 || selectedDistricts.includes(club.district);
+
+                return nameMatch && countryMatch && cityMatch && districtMatch;
+            });
+
+            const clubsList = document.getElementById('clubsList');
+            clubsList.innerHTML = filteredClubs.map(createClubCard).join('');
+        }
+
+        function toggleListbox(id) {
+            document.getElementById(id).classList.toggle('active');
+        }
+
+        // Mouse effect
+        document.addEventListener("mousemove", (e) => {
+            const mouseEffect = document.getElementById("mouse-effect");
+            mouseEffect.style.setProperty("--mouse-x", e.clientX + "px");
+            mouseEffect.style.setProperty("--mouse-y", e.clientY + "px");
+        });
+
+        // Hamburger menu
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            this.classList.toggle('active');
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Close listbox when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.filter-group')) {
+                const listboxes = document.querySelectorAll('.listbox-options');
+                listboxes.forEach(box => box.classList.remove('active'));
+            }
+        });
+
+        // Initial load
+        filterClubs();
+    </script>
+</body>
+</html>
